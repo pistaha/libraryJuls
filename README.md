@@ -1,6 +1,6 @@
 # Library Juls
 
-Репозиторий для прототипа электронной библиотеки: frontend на Vue 3 + Vite, backend на FastAPI, запуск через Docker Compose.
+Репозиторий Library Juls: frontend на Vue 3 + Vite, backend на FastAPI, запуск через Docker Compose.
 
 Автор: ФИО  
 Группа: номер группы  
@@ -8,7 +8,7 @@
 
 ## Цель работы
 
-Создать прототип SPA-приложения электронной библиотеки на Vue 3 с использованием Vite, реализовать backend на FastAPI и подготовить запуск проекта через Docker.
+Создать SPA-приложение Library Juls на Vue 3 с использованием Vite, реализовать backend на FastAPI и подготовить запуск проекта через Docker.
 
 ## Структура проекта
 
@@ -108,4 +108,4 @@ docker compose up
 
 ## Вывод
 
-В результате была создана базовая структура приложения ElectoLibrary, настроены frontend на Vue 3 и backend на FastAPI, добавлены моковые данные и подготовлена контейнеризация через Docker Compose.
+В результате была создана базовая структура приложения Library Juls, настроены frontend на Vue 3 и backend на FastAPI, добавлены моковые данные и подготовлена контейнеризация через Docker Compose.

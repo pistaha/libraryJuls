@@ -2,8 +2,7 @@
   <header class="header">
     <div class="header__inner">
       <div>
-        <p class="header__label">ElectoLibrary</p>
-        <span class="header__subtitle">Прототип интерфейса электронной библиотеки</span>
+        <p class="header__label">Library Juls</p>
       </div>
       <nav class="header__nav">
         <a href="#catalog">Каталог</a>

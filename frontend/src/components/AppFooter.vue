@@ -1,8 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer__inner">
-      <p>ElectoLibrary</p>
-      <span>Учебный прототип на Vue 3 + Vite</span>
+      <p>Library Juls</p>
     </div>
   </footer>
 </template>

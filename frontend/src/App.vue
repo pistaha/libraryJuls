@@ -5,11 +5,7 @@
     <main class="hero">
       <section class="hero__intro">
         <p class="eyebrow">Цифровая библиотека</p>
-        <h1>ElectoLibrary</h1>
-        <p class="hero__description">
-          Прототип SPA-приложения для поиска, просмотра и дальнейшего управления
-          электронным книжным каталогом.
-        </p>
+        <h1>Library Juls</h1>
         <a class="hero__link" href="#catalog">Электронный каталог</a>
       </section>
 

@@ -101,7 +101,7 @@ class BookCreate(BaseModel):
     available: bool = True
 
 
-app = FastAPI(title="ElectoLibrary API")
+app = FastAPI(title="Library Juls API")
 
 
 @app.on_event("startup")
