@@ -136,6 +136,34 @@ http://127.0.0.1:8000
 }
 ```
 
+Команды для проверки API:
+
+```bash
+curl http://127.0.0.1:8000/api/health
+```
+
+```bash
+curl http://127.0.0.1:8000/api/books
+```
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/books \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Тестовая книга",
+    "author": "Тестовый автор",
+    "description": "Описание для проверки POST-запроса",
+    "publisher": "Library Juls",
+    "year": 2026,
+    "category": "Тест",
+    "available": true
+  }'
+```
+
+```bash
+curl -X DELETE http://127.0.0.1:8000/api/books/1
+```
+
 ## Моковые данные
 
 Данные каталога находятся в файле:
