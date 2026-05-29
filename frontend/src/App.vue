@@ -180,6 +180,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-top: 18px;
   padding: 12px 18px;
   border-radius: 999px;
   background: #0f766e;

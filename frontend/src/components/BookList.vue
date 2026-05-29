@@ -220,6 +220,10 @@ function submitBook() {
   background: #f8fbff;
 }
 
+.filters {
+  margin-top: 12px;
+}
+
 .book-form label,
 .filters label {
   display: grid;
@@ -295,6 +299,7 @@ function submitBook() {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
+  margin-top: 12px;
 }
 
 @media (max-width: 900px) {

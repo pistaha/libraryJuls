@@ -1,19 +1,42 @@
 # Library Juls
 
-Репозиторий Library Juls: frontend на Vue 3 + Vite, backend на FastAPI, запуск через Docker Compose.
+Прототип SPA-приложения электронной библиотеки с frontend на Vue 3 + Vite и backend на FastAPI.
 
-Автор: ФИО  
-Группа: номер группы  
-Дата: дата выполнения
+**Авторы:** Рыбаков Я.В., Смирнова Ю.Е.  
+**Группа:** P3269  
+**Дата выполнения:** 29.05.2026  
+**Репозиторий:** <https://github.com/pistaha/libraryJuls>
 
 ## Цель работы
 
-Создать SPA-приложение Library Juls на Vue 3 с использованием Vite, реализовать backend на FastAPI и подготовить запуск проекта через Docker.
+Создать прототип приложения электронной библиотеки, подготовить frontend-составляющую на Vite, реализовать backend с несколькими API-роутами, добавить моковые данные и настроить запуск через Docker.
+
+## Что реализовано
+
+- создан SPA frontend на `Vue 3` и `Vite`
+- настроена сборка frontend через `npm run build`
+- добавлен Dockerfile для frontend и nginx-конфигурация
+- реализован backend на `FastAPI`
+- добавлены API-роуты `GET`, `POST`, `DELETE`
+- подключены моковые данные книг из `data/books.json`
+- реализовано добавление книг через форму
+- реализовано удаление книг из каталога
+- добавлена фильтрация по поиску, категории и статусу доступности
+- подготовлен общий запуск через `docker-compose.yml`
 
 ## Структура проекта
 
 ```text
-/
+libraryJuls/
+├── backend/
+│   ├── Dockerfile
+│   ├── main.py
+│   └── requirements.txt
+├── data/
+│   └── books.json
+├── docs/
+│   └── imgs/
+│       └── npm-run-dev.png
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -23,61 +46,26 @@
 │   │   │   └── BookList.vue
 │   │   ├── App.vue
 │   │   └── main.js
-│   ├── public/
 │   ├── Dockerfile
 │   ├── index.html
 │   ├── nginx.conf
 │   ├── package.json
 │   └── vite.config.js
-├── backend/
-│   ├── Dockerfile
-│   ├── main.py
-│   └── requirements.txt
-├── data/
-│   └── books.json
-├── docs/
-│   └── imgs/
 ├── docker-compose.yml
 └── README.md
 ```
 
-## Выполненные шаги
+## Скриншот приложения
 
-- создан Vue 3 проект через Vite
-- настроен `vite.config.js`
-- собран frontend через `npm run build`
-- создан Dockerfile для frontend
-- создан FastAPI backend
-- реализованы GET, POST и DELETE роуты
-- добавлены моковые данные
-- создан `docker-compose.yml`
-- добавлены добавление, удаление и фильтрация книг на frontend
+Скриншот запущенного приложения через `npm run dev`:
 
-## Скриншот
+![Скриншот Library Juls](docs/imgs/npm-run-dev.png)
 
-![Скриншот npm run dev](docs/imgs/npm-run-dev.png)
+## Frontend
 
-## API
+Frontend расположен в папке `frontend`.
 
-### GET /api/books
-
-Возвращает список книг из файла `data/books.json`.
-
-### POST /api/books
-
-Добавляет новую книгу в список и сохраняет обновленный массив в `data/books.json`.
-
-### DELETE /api/books/{book_id}
-
-Удаляет книгу по идентификатору.
-
-### GET /api/health
-
-Возвращает статус доступности сервера.
-
-## Инструкция запуска
-
-### Для frontend в режиме разработки
+Основные команды:
 
 ```bash
 cd frontend
@@ -85,13 +73,30 @@ npm install
 npm run dev
 ```
 
-### Для сборки
+Сборка production-версии:
 
 ```bash
+cd frontend
 npm run build
 ```
 
-### Для backend
+После запуска dev-сервера приложение доступно по адресу:
+
+```text
+http://127.0.0.1:3000/
+```
+
+Vite настроен так, чтобы запросы `/api` проксировались на backend:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Backend
+
+Backend расположен в папке `backend` и реализован на FastAPI.
+
+Запуск локально:
 
 ```bash
 cd backend
@@ -99,13 +104,88 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-### Для Docker
+После запуска API доступно по адресу:
+
+```text
+http://127.0.0.1:8000
+```
+
+## API
+
+| Метод | Роут | Назначение |
+| --- | --- | --- |
+| `GET` | `/api/health` | Проверка доступности backend |
+| `GET` | `/api/books` | Получение списка книг |
+| `POST` | `/api/books` | Добавление новой книги |
+| `DELETE` | `/api/books/{book_id}` | Удаление книги по идентификатору |
+
+Пример тела запроса для добавления книги:
+
+```json
+{
+  "title": "Название книги",
+  "author": "Автор",
+  "description": "Описание книги",
+  "publisher": "Издательство",
+  "year": 2026,
+  "category": "Категория",
+  "available": true
+}
+```
+
+## Моковые данные
+
+Данные каталога находятся в файле:
+
+```text
+data/books.json
+```
+
+Для каждой книги используются поля:
+
+- `id`
+- `title`
+- `author`
+- `description`
+- `publisher`
+- `year`
+- `category`
+- `available`
+- `created_at`
+
+## Docker
+
+Для запуска всего приложения через Docker Compose:
 
 ```bash
 docker compose build
 docker compose up
 ```
 
+После запуска контейнеров:
+
+```text
+Frontend: http://localhost:3000
+Backend:  http://localhost:8000
+```
+
+`frontend/nginx.conf` проксирует запросы `/api/` во внутренний backend-сервис Docker Compose.
+
+## Проверка выполнения
+
+В рамках работы выполнены основные пункты задания:
+
+- проект создан на основе Vite
+- frontend собирается командой `npm run build`
+- frontend запускается командой `npm run dev`
+- добавлен Dockerfile для frontend
+- настроена nginx-конфигурация для frontend-контейнера
+- реализован backend-сервер FastAPI
+- реализованы API-роуты для получения, добавления и удаления книг
+- добавлены моковые данные
+- подготовлен screenshot в `docs/imgs`
+- проект опубликован в отдельном GitHub-репозитории
+
 ## Вывод
 
-В результате была создана базовая структура приложения Library Juls, настроены frontend на Vue 3 и backend на FastAPI, добавлены моковые данные и подготовлена контейнеризация через Docker Compose.
+В результате был подготовлен прототип приложения Library Juls: электронный каталог книг с просмотром списка, добавлением, удалением и фильтрацией записей. Проект разделен на frontend и backend, поддерживает локальный запуск и контейнеризацию через Docker Compose.
