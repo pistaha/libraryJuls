@@ -36,7 +36,8 @@ libraryJuls/
 │   └── books.json
 ├── docs/
 │   └── imgs/
-│       └── npm-run-dev.png
+│       ├── app-catalog.png
+│       └── app-actions.png
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -55,11 +56,13 @@ libraryJuls/
 └── README.md
 ```
 
-## Скриншот приложения
+## Скриншоты приложения
 
-Скриншот запущенного приложения через `npm run dev`:
+Скриншоты запущенного приложения через `npm run dev`:
 
-![Скриншот Library Juls](docs/imgs/npm-run-dev.png)
+![Каталог Library Juls](docs/imgs/app-catalog.png)
+
+![Управление каталогом Library Juls](docs/imgs/app-actions.png)
 
 ## Frontend
 
