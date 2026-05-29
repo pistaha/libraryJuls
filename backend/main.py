@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 
@@ -139,3 +139,15 @@ def create_book(payload: BookCreate) -> dict:
     books.append(new_book)
     save_books(books)
     return new_book
+
+
+@app.delete("/api/books/{book_id}")
+def delete_book(book_id: int) -> dict[str, int]:
+    books = load_books()
+    updated_books = [book for book in books if book["id"] != book_id]
+
+    if len(updated_books) == len(books):
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    save_books(updated_books)
+    return {"deleted_id": book_id}

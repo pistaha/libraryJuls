@@ -13,7 +13,14 @@
         <a class="hero__link" href="#catalog">Электронный каталог</a>
       </section>
 
-      <BookList id="catalog" :books="books" />
+      <BookList
+        id="catalog"
+        :books="books"
+        :loading="loading"
+        :error-message="errorMessage"
+        @add-book="addBook"
+        @delete-book="deleteBook"
+      />
     </main>
 
     <AppFooter />
@@ -21,42 +28,78 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import AppFooter from '@/components/AppFooter.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import BookList from '@/components/BookList.vue';
 
-const books = [
-  {
-    id: 1,
-    title: 'Чистый код',
-    author: 'Роберт Мартин',
-    description: 'Практики написания поддерживаемого и читаемого кода.',
-    publisher: 'Питер',
-    year: 2020,
-    category: 'Программирование',
-    available: true,
-  },
-  {
-    id: 2,
-    title: 'Алгоритмы. Построение и анализ',
-    author: 'Томас Кормен',
-    description: 'Базовый академический справочник по алгоритмам и структурам данных.',
-    publisher: 'Вильямс',
-    year: 2019,
-    category: 'Информатика',
-    available: false,
-  },
-  {
-    id: 3,
-    title: 'Паттерны проектирования',
-    author: 'Эрих Гамма и др.',
-    description: 'Классическое руководство по объектно-ориентированным паттернам.',
-    publisher: 'Диалектика',
-    year: 2021,
-    category: 'Архитектура ПО',
-    available: true,
-  },
-];
+const books = ref([]);
+const loading = ref(false);
+const errorMessage = ref('');
+
+async function requestJson(url, options = {}) {
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+    ...options,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Ошибка API: ${response.status}`);
+  }
+
+  if (response.status === 204) {
+    return null;
+  }
+
+  return response.json();
+}
+
+async function loadBooks() {
+  loading.value = true;
+  errorMessage.value = '';
+
+  try {
+    books.value = await requestJson('/api/books');
+  } catch (error) {
+    errorMessage.value = 'Не удалось загрузить каталог книг.';
+  } finally {
+    loading.value = false;
+  }
+}
+
+async function addBook(bookPayload) {
+  errorMessage.value = '';
+
+  try {
+    const createdBook = await requestJson('/api/books', {
+      method: 'POST',
+      body: JSON.stringify(bookPayload),
+    });
+
+    books.value = [...books.value, createdBook];
+  } catch (error) {
+    errorMessage.value = 'Не удалось добавить книгу.';
+  }
+}
+
+async function deleteBook(bookId) {
+  errorMessage.value = '';
+
+  try {
+    await requestJson(`/api/books/${bookId}`, {
+      method: 'DELETE',
+    });
+
+    books.value = books.value.filter((book) => book.id !== bookId);
+  } catch (error) {
+    errorMessage.value = 'Не удалось удалить книгу.';
+  }
+}
+
+onMounted(loadBooks);
 </script>
 
 <style>

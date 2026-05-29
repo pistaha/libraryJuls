@@ -48,9 +48,10 @@
 - собран frontend через `npm run build`
 - создан Dockerfile для frontend
 - создан FastAPI backend
-- реализованы GET и POST роуты
+- реализованы GET, POST и DELETE роуты
 - добавлены моковые данные
 - создан `docker-compose.yml`
+- добавлены добавление, удаление и фильтрация книг на frontend
 
 ## Скриншот
 
@@ -65,6 +66,10 @@
 ### POST /api/books
 
 Добавляет новую книгу в список и сохраняет обновленный массив в `data/books.json`.
+
+### DELETE /api/books/{book_id}
+
+Удаляет книгу по идентификатору.
 
 ### GET /api/health
 

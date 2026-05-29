@@ -21,6 +21,10 @@
         <dd>{{ book.year }}</dd>
       </div>
     </dl>
+
+    <button class="book-card__delete" type="button" @click="$emit('delete-book')">
+      Удалить
+    </button>
   </article>
 </template>
 
@@ -31,6 +35,8 @@ defineProps({
     required: true,
   },
 });
+
+defineEmits(['delete-book']);
 </script>
 
 <style scoped>
@@ -109,5 +115,22 @@ defineProps({
   margin: 6px 0 0;
   color: #334e68;
   font-weight: 600;
+}
+
+.book-card__delete {
+  width: 100%;
+  margin-top: 18px;
+  border: 1px solid rgba(153, 27, 27, 0.18);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff5f5;
+  color: #991b1b;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.book-card__delete:hover {
+  background: #fee2e2;
 }
 </style>
